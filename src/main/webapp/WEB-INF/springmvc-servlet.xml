@@ -14,21 +14,6 @@
     </context:component-scan>
     <context:component-scan base-package="com.etop.controller"/>
     <mvc:annotation-driven/>
-    <!--<mvc:resources location="/resources/**" mapping="/resources/**" />-->
-
-    <bean id="multipartResolver"
-          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="defaultEncoding">
-            <value>UTF-8</value>
-        </property>
-        <!-- set the max upload size 2G -->
-        <property name="maxUploadSize">
-            <value>2147483647</value>
-        </property>
-        <property name="maxInMemorySize">
-            <value>4096</value>
-        </property>
-    </bean>
     <!-- 根据客户端的不同的请求决定不同的view进行响应, 如 /blog/1.json /blog/1.xml -->
     <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
         <!-- 扩展名至mimeType的映射,即 /account.json => application/json -->

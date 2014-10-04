@@ -3,7 +3,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-    <title>登陆页面</title>
+    <title>登录页面</title>
     <script type="text/javascript" src="static/js/md5.js"></script>
 </head>
 
@@ -12,7 +12,7 @@
 <form action="/login.html" name="user" method="post">
     用户名：<input type="text" name="username"/> <br/>
     密&nbsp;&nbsp;码：<input type="password" id="password" name="password"/> <br/>
-    <input type="button" onclick="submitform()" value="登陆"/>
+    <input type="button" onclick="submitform()" value="登录"/>
     <input type="reset" value="重置"/>
 </form>
 </body>

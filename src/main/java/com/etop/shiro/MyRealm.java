@@ -31,7 +31,7 @@ public class MyRealm extends AuthorizingRealm{
     @Inject
     private UserService userService;
     /**
-     * 权限认证 
+     * 获取授权信息
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -55,7 +55,7 @@ public class MyRealm extends AuthorizingRealm{
     }
 
     /**
-     * 登录认证; 
+     * 获取身份验证相关信息
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(
