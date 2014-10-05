@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
+ * 处理用户操作的控制器
+ *
  * Created by Jeremie on 2014/10/3.
  */
 @Controller

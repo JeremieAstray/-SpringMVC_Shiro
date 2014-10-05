@@ -22,6 +22,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+/**
+ * 处理用户登录登出的控制器
+ *
+ * Created by Jeremie on 2014/10/3.
+ */
 @Controller
 public class HomeController extends BaseController {
 

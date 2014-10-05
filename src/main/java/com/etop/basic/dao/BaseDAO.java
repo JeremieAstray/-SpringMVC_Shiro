@@ -1,6 +1,5 @@
 package com.etop.basic.dao;
 
-import com.etop.basic.entity.BaseEntity;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -18,7 +17,7 @@ import java.util.Map;
 /**
  * Created by Jeremie on 14-2-12.
  */
-public class BaseDAO<T extends BaseEntity> implements Serializable {
+public class BaseDAO<T> implements Serializable {
 
     protected transient Logger log = Logger.getLogger(this.getClass());
     @Autowired
@@ -60,27 +59,20 @@ public class BaseDAO<T extends BaseEntity> implements Serializable {
     }
 
     public void update(T entity) throws DataAccessException {
-        log.debug("DAO:Update entity " + entity.getClass().getSimpleName() + ":Id=" + entity.getId());
+        log.debug("DAO:Update entity " + entity.getClass().getSimpleName());
         getSession().clear();
         getSession().update(entity);
     }
 
     public void saveOrUpdate(T entity) throws DataAccessException {
-        log.debug("DAO:Sava or Update entity " + entity.getClass().getSimpleName() + ":Id=" + entity.getId());
+        log.debug("DAO:Sava or Update entity " + entity.getClass().getSimpleName());
         getSession().clear();
         getSession().saveOrUpdate(entity);
     }
 
-    public void invalid(T entity) throws DataAccessException {
-        log.debug("DAO:Setting valid=0 to invalid entity " + entity.getClass().getSimpleName() + ":Id=" + entity.getId());
-        String queryString = "update " + entity.getClass().getSimpleName() + " A set A.valid=0 where A.id=" + entity.getId();
-        this.excute(queryString);
-    }
-
     public void delete(T entity) throws DataAccessException {
-        log.debug("DAO:delete entity " + getCurClass().getSimpleName() + ":Id=" + entity.getId());
-        String queryString = "delete from " + getCurClass().getSimpleName() + " where id=" + entity.getId();
-        this.excute(queryString);
+        log.debug("DAO:delete entity " + getCurClass().getSimpleName());
+        getSession().delete(entity);
     }
 
     public void deleteById(long id) throws DataAccessException {

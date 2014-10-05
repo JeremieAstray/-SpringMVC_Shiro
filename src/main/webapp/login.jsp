@@ -19,6 +19,7 @@
 <script type="text/javascript">
     function submitform(){
         var password = document.getElementById("password");
+        //md5加密
         document.getElementById("password").value = hex_md5(password.value);
         document.user.submit();
     }

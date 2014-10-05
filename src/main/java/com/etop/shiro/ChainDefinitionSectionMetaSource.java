@@ -11,6 +11,8 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * 产生责任链，确定每个url的访问权限
+ *
  * Created by Jeremie on 2014/10/1.
  */
 public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section> {

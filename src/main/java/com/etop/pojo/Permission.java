@@ -1,19 +1,31 @@
 package com.etop.pojo;
 
-import com.etop.basic.entity.BaseEntity;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
+ * 权限类，保存权限信息与对应的角色（多对一）
+ * <p/>
  * Created by Jeremie on 2014/10/1.
  */
 
 @Entity
 @Table(name = "t_permission")
-public class Permission extends BaseEntity {
+public class Permission implements Serializable {
 
+    private Integer id;
     private String permissionname;
     private Role role;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getPermissionname() {
         return permissionname;

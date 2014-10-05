@@ -1,20 +1,32 @@
 package com.etop.pojo;
 
-import com.etop.basic.entity.BaseEntity;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
+ * 网页过滤信息类，保存网页过滤信息，以及对应的权限(一对一)或角色(一对一)
+ * <p/>
  * Created by Jeremie on 2014/10/1.
  */
 @Entity
 @Table(name = "t_function")
-public class Function extends BaseEntity {
+public class Function implements Serializable {
 
+    private Integer id;
     private String value;
     private Permission permission;
     private Role role;
     private String type;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getValue() {
         return value;

@@ -21,6 +21,8 @@ import com.etop.pojo.Role;
 import com.etop.pojo.User;
 
 /**
+ * 自定义Realm,进行数据源配置
+ *
  * Created by Jeremie on 2014/10/1.
  */
 
