@@ -105,64 +105,21 @@
         <property name="cacheManagerConfigFile" value="classpath:ehcache-shiro.xml"/>
     </bean>
 
-    <!-- 控制器异常处理 -->
-    <bean id="exceptionHandlerExceptionResolver" class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver">
-    </bean>
-    <bean class="com.etop.exception.DefaultExceptionHandler"/>
-
     <!-- 安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        <!--<property name="cacheManager" ref="cacheManager"/>-->
+        <property name="cacheManager" ref="cacheManager"/>
         <property name="realm" ref="myRealm"/>
         <!--<property name="sessionManager" ref="sessionManager"/>-->
     </bean>
 
     <!--自定义Realm-->
-    <bean id="myRealm" class="com.etop.service.MyRealm"/>
-    <!--        <property name="cachingEnabled" value="true"/>
+    <bean id="myRealm" class="com.etop.service.MyRealm">
+            <property name="cachingEnabled" value="true"/>
             <property name="authenticationCachingEnabled" value="true"/>
             <property name="authenticationCacheName" value="authenticationCache"/>
             <property name="authorizationCachingEnabled" value="true"/>
-            <property name="authorizationCacheName" value="authorizationCache"/>-->
-    <!--     </bean>-->
-
-    <!--<bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>-->
-
-    <!-- 会话Cookie模板 -->
-    <!--<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">-->
-    <!--<constructor-arg value="sid"/>-->
-    <!--<property name="httpOnly" value="true"/>-->
-    <!--<property name="maxAge" value="180000"/>-->
-    <!--</bean>-->
-
-    <!-- 会话DAO -->
-    <!--<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">-->
-    <!--<property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>-->
-    <!--<property name="sessionIdGenerator" ref="sessionIdGenerator"/>-->
-    <!--</bean>-->
-
-    <!-- 会话验证调度器 -->
-    <!--<bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">-->
-    <!--<property name="sessionValidationInterval" value="1800000"/>-->
-    <!--<property name="sessionManager" ref="sessionManager"/>-->
-    <!--</bean>-->
-
-    <!--&lt;!&ndash; 会话管理器 &ndash;&gt;-->
-    <!--<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">-->
-    <!--<property name="globalSessionTimeout" value="1800000"/>-->
-    <!--<property name="deleteInvalidSessions" value="true"/>-->
-    <!--<property name="sessionValidationSchedulerEnabled" value="true"/>-->
-    <!--<property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>-->
-    <!--<property name="sessionDAO" ref="sessionDAO"/>-->
-    <!--<property name="sessionIdCookieEnabled" value="true"/>-->
-    <!--<property name="sessionIdCookie" ref="sessionIdCookie"/>-->
-    <!--</bean>-->
-
-    <!-- 相当于调用SecurityUtils.setSecurityManager(securityManager) -->
-    <!--<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">-->
-    <!--<property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager"/>-->
-    <!--<property name="arguments" ref="securityManager"/>-->
-    <!--</bean>-->
+            <property name="authorizationCacheName" value="authorizationCache"/>
+    </bean>
 
     <!-- 配置shiro的过滤器工厂类，id- shiroFilter要和我们在web.xml中配置的过滤器一致 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -182,14 +139,8 @@
                 /** = authc
             </value>
         </property>
-        <!--<property name="filterChainDefinitionMap" ref="chainDefinitionSectionMetaSource"/>-->
     </bean>
-    <!--自定义filterChainDefinitionMap-->
-    <!--<bean id="chainDefinitionSectionMetaSource" class="com.etop.shiro.ChainDefinitionSectionMetaSource"/>-->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
-    <!--<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
-        <property name="proxyTargetClass" value="true" />
-    </bean>-->
 
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
         <property name="proxyTargetClass" value="true" />

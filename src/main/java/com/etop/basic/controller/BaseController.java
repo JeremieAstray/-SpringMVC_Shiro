@@ -2,10 +2,14 @@ package com.etop.basic.controller;
 
 import com.etop.utils.DateUtils;
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.UnauthorizedException;
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,38 +65,16 @@ public abstract class BaseController {
         redirectAttributes.addFlashAttribute("type", type);
     }
 
-    /**
-     * 初始化数据绑定 1. 将所有传递进来的String进行HTML编码，防止XSS攻击 2. 将字段中Date类型转换为String类型
-     */
-    /*@InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        // String类型转换，将所有传递进来的String进行HTML编码，防止XSS攻击
-        binder.registerCustomEditor(String.class, new PropertyEditorSupport() {
-            @Override
-            public void setAsText(String text) {
-                //setValue(text == null ? null : StringEscapeUtils.escapeHtml(text.trim()));
-                setValue(text == null ? null : text.trim());
-            }
-
-            @Override
-            public String getAsText() {
-                Object value = getValue();
-                return value != null ? value.toString() : "";
-            }
-        });
-        // Date 类型转换
-        binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
-            @Override
-            public void setAsText(String text) {
-                setValue(DateUtils.parseDate(text));
-            }
-        });
-    }*/
     @ExceptionHandler(Exception.class)
     public String handleException(Exception ex, HttpServletRequest request){
-        log.error("系统发生异常", ex);
-        ex.printStackTrace();
-        request.setAttribute("exMsg", ex.getMessage());
-        return "errors/exception";
+        if(ex instanceof UnauthorizedException){
+            log.error("当前用户没有此权限");
+            return "/403.jsp";
+        }else {
+            log.error("系统发生异常", ex);
+            ex.printStackTrace();
+            request.setAttribute("exMsg", ex.getMessage());
+            return "errors/exception";
+        }
     }
 }
