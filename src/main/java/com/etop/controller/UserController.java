@@ -1,6 +1,9 @@
 package com.etop.controller;
 
 import com.etop.basic.controller.BaseController;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.UnauthorizedException;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,21 +18,41 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/user")
 public class UserController extends BaseController {
 
-    //add,edit,del页面并没有写具体逻辑，要验证是否成功，需要观察控制台输出。
+    @RequiresPermissions(value = "user:add")
     @RequestMapping("/add.html")
-    public String addUser(){
+    public String addUser() throws UnauthorizedException {
+        /*try {
+            SecurityUtils.getSubject().checkPermission("user:add");
+        }catch (UnauthorizedException e){
+            e.printStackTrace();
+            return "/403.jsp";
+        }*/
         return "/success.jsp";
     }
 
+    @RequiresPermissions(value = "user:edit")
     @RequestMapping("/edit.html")
     public String updateUser(int id){
+        /*try {
+            SecurityUtils.getSubject().checkPermission("user:edit");
+        }catch (UnauthorizedException e){
+            e.printStackTrace();
+            return "/403.jsp";
+        }*/
         System.out.println("=========================================>要修改的id为:" + id);
         return "/success.jsp";
     }
 
+    @RequiresPermissions(value = "user:del")
     @ResponseBody
     @RequestMapping(value = "/del.html",produces = "text/html; charset=utf-8",method= RequestMethod.GET)
     public String deleteUser(String id){
+       /* try {
+            SecurityUtils.getSubject().checkPermission("user:del");
+        }catch (UnauthorizedException e){
+            e.printStackTrace();
+            return "/403.jsp";
+        }*/
         System.out.println("=========================================>要删除的id为:" + id);
         return "";
     }

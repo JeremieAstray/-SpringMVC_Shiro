@@ -64,7 +64,7 @@ public class HomeController extends BaseController {
     public String logout(RedirectAttributes attr){
         //使用权限管理工具进行用户的退出，注销登录
         SecurityUtils.getSubject().logout();
-        addMessage(attr, "您已安全退出");
+        //addMessage(attr, "您已安全退出");
         return "redirect:/login.html";
     }
 

@@ -64,7 +64,7 @@ public abstract class BaseController {
     /**
      * 初始化数据绑定 1. 将所有传递进来的String进行HTML编码，防止XSS攻击 2. 将字段中Date类型转换为String类型
      */
-    @InitBinder
+    /*@InitBinder
     protected void initBinder(WebDataBinder binder) {
         // String类型转换，将所有传递进来的String进行HTML编码，防止XSS攻击
         binder.registerCustomEditor(String.class, new PropertyEditorSupport() {
@@ -87,7 +87,7 @@ public abstract class BaseController {
                 setValue(DateUtils.parseDate(text));
             }
         });
-    }
+    }*/
     @ExceptionHandler(Exception.class)
     public String handleException(Exception ex, HttpServletRequest request){
         log.error("系统发生异常", ex);
